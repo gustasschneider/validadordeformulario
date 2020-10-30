@@ -44,3 +44,12 @@ body {
     outline: 0;
 }
 
+.error {
+    font-size: 11px;
+    background-color: red;
+    color: #FFF;
+    padding: 4px;
+    border-radius: 5px;
+
+}
+

@@ -6,6 +6,8 @@ let GS7validator = {
 
         let inputs = form.querySelectorAll('input');
 
+        GS7validator.clearErrors();
+
         for(let i = 0; i < inputs.length; i++){
             let input = inputs[i];
             let check = GS7validator.checkInput(input);
@@ -13,7 +15,7 @@ let GS7validator = {
             if(check !== true){
                 send = false;
                 //exibi o erro
-                console.log(check);
+                GS7validator.showError(input, check);
             }
         }
 
@@ -38,7 +40,7 @@ let GS7validator = {
                 switch (rDetails[0]){
                     case 'required':
                         if(input.value == ''){
-                            return 'Campo não pode ser vazio!';
+                            return 'Campo invalido!';
                         }
                         break;
 
@@ -49,6 +51,33 @@ let GS7validator = {
         }
 
         return true;
+    },
+    showError: (input, error) => {
+        input.style.borderColor = '#FF0000';
+
+        //Crio uma variavel onde ela vai ser uma DIV
+        let errorElement = document.createElement('div');
+        //Em seguida na variavel eu add uma classe nessa div chamada error
+        errorElement.classList.add('error');
+        //Dentro dessa div eu adiciono o texto error que passa no parametro da funcao para exibir
+        errorElement.innerHTML = error;
+
+        //Mostrando a legenda do erro
+        input.parentElement.insertBefore(errorElement, input.ElementSibling);
+
+    },
+    clearErrors: () => {
+        // crio a variavel onde vou remover a borda dos inputs e todos os styles dele
+        let inputs = form.querySelectorAll('input');
+        for(let i = 0; i < inputs.length; i++;){
+            inputs[i].style = '';
+        }
+
+        //crio uma variavel onde vou salvar todas as classes error e removo
+        let errorElements = document.querySelectorAll('.error');
+        for(let i = 0; errorElements.length; i++){
+            errorElements[i].remove();
+        }
     }
 };
 
