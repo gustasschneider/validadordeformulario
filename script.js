@@ -45,6 +45,18 @@ let GS7validator = {
                         break;
 
                     case 'min':
+                        if(input.value.length < rDetails[1]){
+                            return 'Campo tem que ter pelo menos ' +rDetails[1]+ ' carateres';
+                        }
+                        break;
+
+                    case 'email':
+                        if(input.value != ''){
+                            let regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                            if(!regex.test(input.value.toLowerCase())){
+                                return 'E-mail digitado invalido!';
+                            }
+                        }
                         break;
                 }
             }
@@ -69,13 +81,13 @@ let GS7validator = {
     clearErrors: () => {
         // crio a variavel onde vou remover a borda dos inputs e todos os styles dele
         let inputs = form.querySelectorAll('input');
-        for(let i = 0; i < inputs.length; i++;){
+        for(let i = 0; i < inputs.length; i++){
             inputs[i].style = '';
         }
 
         //crio uma variavel onde vou salvar todas as classes error e removo
         let errorElements = document.querySelectorAll('.error');
-        for(let i = 0; errorElements.length; i++){
+        for(let i = 0; i < errorElements.length; i++){
             errorElements[i].remove();
         }
     }
